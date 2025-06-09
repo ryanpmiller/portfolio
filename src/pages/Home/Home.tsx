@@ -237,6 +237,7 @@ const Home: React.FC = () => {
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ delay: index * 0.2 + 1 }}
 										whileHover={{ y: -8 }}
+										style={{ display: 'block' }}
 									>
 										<Card
 											sx={{

@@ -12,12 +12,66 @@ jest.mock('@mui/material/useMediaQuery', () => ({
 // Mock framer-motion to avoid media query issues
 jest.mock('framer-motion', () => ({
 	motion: {
-		div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-		section: ({ children, ...props }: any) => (
-			<section {...props}>{children}</section>
-		),
-		h1: ({ children, ...props }: any) => <h1 {...props}>{children}</h1>,
-		p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
+		div: ({
+			children,
+			whileHover: _whileHover,
+			whileTap: _whileTap,
+			initial: _initial,
+			animate: _animate,
+			transition: _transition,
+			variants: _variants,
+			...props
+		}: any) => <div {...props}>{children}</div>,
+		section: ({
+			children,
+			whileHover: _whileHover,
+			whileTap: _whileTap,
+			initial: _initial,
+			animate: _animate,
+			transition: _transition,
+			variants: _variants,
+			...props
+		}: any) => <section {...props}>{children}</section>,
+		h1: ({
+			children,
+			whileHover: _whileHover,
+			whileTap: _whileTap,
+			initial: _initial,
+			animate: _animate,
+			transition: _transition,
+			variants: _variants,
+			...props
+		}: any) => <h1 {...props}>{children}</h1>,
+		p: ({
+			children,
+			whileHover: _whileHover,
+			whileTap: _whileTap,
+			initial: _initial,
+			animate: _animate,
+			transition: _transition,
+			variants: _variants,
+			...props
+		}: any) => <p {...props}>{children}</p>,
+		span: ({
+			children,
+			whileHover: _whileHover,
+			whileTap: _whileTap,
+			initial: _initial,
+			animate: _animate,
+			transition: _transition,
+			variants: _variants,
+			...props
+		}: any) => <span {...props}>{children}</span>,
+		button: ({
+			children,
+			whileHover: _whileHover,
+			whileTap: _whileTap,
+			initial: _initial,
+			animate: _animate,
+			transition: _transition,
+			variants: _variants,
+			...props
+		}: any) => <button {...props}>{children}</button>,
 	},
 	AnimatePresence: ({ children }: any) => children,
 }));

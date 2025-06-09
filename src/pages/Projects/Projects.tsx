@@ -363,65 +363,65 @@ const Projects: React.FC = () => {
 													<CardActions
 														sx={{ p: 2, pt: 0 }}
 													>
-														<motion.div
+														<Button
+															component={
+																motion.button
+															}
 															whileHover={{
 																scale: 1.05,
 															}}
 															whileTap={{
 																scale: 0.95,
 															}}
+															size="small"
+															startIcon={
+																<GitHubIcon />
+															}
+															onClick={e => {
+																e.stopPropagation();
+																window.open(
+																	project.githubUrl,
+																	'_blank'
+																);
+															}}
+															sx={{
+																borderRadius: 3,
+																transition:
+																	'all 0.3s ease',
+															}}
 														>
-															<Button
-																size="small"
-																startIcon={
-																	<GitHubIcon />
-																}
-																onClick={e => {
-																	e.stopPropagation();
-																	window.open(
-																		project.githubUrl,
-																		'_blank'
-																	);
-																}}
-																sx={{
-																	borderRadius: 3,
-																	transition:
-																		'all 0.3s ease',
-																}}
-															>
-																Code
-															</Button>
-														</motion.div>
-														<motion.div
+															Code
+														</Button>
+														<Button
+															component={
+																motion.button
+															}
 															whileHover={{
 																scale: 1.05,
 															}}
 															whileTap={{
 																scale: 0.95,
 															}}
+															size="small"
+															startIcon={
+																<LaunchIcon />
+															}
+															variant="contained"
+															onClick={e => {
+																e.stopPropagation();
+																window.open(
+																	project.liveUrl,
+																	'_blank'
+																);
+															}}
+															sx={{
+																borderRadius: 3,
+																transition:
+																	'all 0.3s ease',
+															}}
 														>
-															<Button
-																size="small"
-																startIcon={
-																	<LaunchIcon />
-																}
-																variant="contained"
-																onClick={e => {
-																	e.stopPropagation();
-																	window.open(
-																		project.liveUrl,
-																		'_blank'
-																	);
-																}}
-																sx={{
-																	borderRadius: 3,
-																	transition:
-																		'all 0.3s ease',
-																}}
-															>
-																Live Demo
-															</Button>
-														</motion.div>
+															Live Demo
+														</Button>
 													</CardActions>
 												</Card>
 											</motion.div>
@@ -470,14 +470,14 @@ const Projects: React.FC = () => {
 									>
 										{selectedProject.title}
 									</Typography>
-									<motion.div
+									<IconButton
+										component={motion.button}
 										whileHover={{ rotate: 90 }}
 										whileTap={{ scale: 0.9 }}
+										onClick={handleCloseDialog}
 									>
-										<IconButton onClick={handleCloseDialog}>
-											<CloseIcon />
-										</IconButton>
-									</motion.div>
+										<CloseIcon />
+									</IconButton>
 								</DialogTitle>
 								<DialogContent>
 									<motion.div
@@ -578,41 +578,37 @@ const Projects: React.FC = () => {
 									</motion.div>
 								</DialogContent>
 								<DialogActions sx={{ p: 3, pt: 0 }}>
-									<motion.div
+									<Button
+										component={motion.button}
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
+										startIcon={<GitHubIcon />}
+										onClick={() =>
+											window.open(
+												selectedProject.githubUrl,
+												'_blank'
+											)
+										}
+										sx={{ borderRadius: 3 }}
 									>
-										<Button
-											startIcon={<GitHubIcon />}
-											onClick={() =>
-												window.open(
-													selectedProject.githubUrl,
-													'_blank'
-												)
-											}
-											sx={{ borderRadius: 3 }}
-										>
-											View Code
-										</Button>
-									</motion.div>
-									<motion.div
+										View Code
+									</Button>
+									<Button
+										component={motion.button}
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
+										variant="contained"
+										startIcon={<LaunchIcon />}
+										onClick={() =>
+											window.open(
+												selectedProject.liveUrl,
+												'_blank'
+											)
+										}
+										sx={{ borderRadius: 3 }}
 									>
-										<Button
-											variant="contained"
-											startIcon={<LaunchIcon />}
-											onClick={() =>
-												window.open(
-													selectedProject.liveUrl,
-													'_blank'
-												)
-											}
-											sx={{ borderRadius: 3 }}
-										>
-											Live Demo
-										</Button>
-									</motion.div>
+										Live Demo
+									</Button>
 								</DialogActions>
 							</Dialog>
 						)}
