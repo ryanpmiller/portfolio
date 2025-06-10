@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
 	Container,
@@ -8,7 +8,7 @@ import {
 	Grid,
 	Card,
 	CardContent,
-	Chip,
+	LinearProgress,
 } from '@mui/material';
 import {
 	Code as CodeIcon,
@@ -17,8 +17,14 @@ import {
 	ArrowForward as ArrowForwardIcon,
 	Work as WorkIcon,
 	Email as EmailIcon,
+	TrendingUp as TrendingUpIcon,
+	Lightbulb as LightbulbIcon,
+	Rocket as RocketIcon,
+	Star as StarIcon,
+	Timeline as TimelineIcon,
+	Psychology as PsychologyIcon,
 } from '@mui/icons-material';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
 import { useTheme as useCustomTheme } from '../../ThemeContext';
 
@@ -26,18 +32,81 @@ const Home: React.FC = () => {
 	const navigate = useNavigate();
 	const { mode } = useCustomTheme();
 	const isDarkMode = mode === 'dark';
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	const { scrollYProgress } = useScroll({
+		target: containerRef,
+		offset: ['start start', 'end end'],
+	});
+
+	const y = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
 	const skills = [
-		'React',
-		'TypeScript',
-		'JavaScript',
-		'HTML5',
-		'CSS3',
-		'Material-UI',
-		'Node.js',
-		'Git',
-		'AWS',
-		'Responsive Design',
+		{ name: 'React', level: 95 },
+		{ name: 'TypeScript', level: 90 },
+		{ name: 'JavaScript', level: 95 },
+		{ name: 'HTML5', level: 98 },
+		{ name: 'CSS3', level: 92 },
+		{ name: 'Material-UI', level: 88 },
+		{ name: 'Node.js', level: 85 },
+		{ name: 'Git', level: 90 },
+		{ name: 'AWS', level: 80 },
+		{ name: 'Responsive Design', level: 95 },
+	];
+
+	const stats = [
+		{
+			number: 50,
+			label: 'Projects Completed',
+			icon: <RocketIcon fontSize="inherit" />,
+		},
+		{
+			number: 3,
+			label: 'Years Experience',
+			icon: <TimelineIcon fontSize="inherit" />,
+		},
+		{
+			number: 25,
+			label: 'Technologies Mastered',
+			icon: <PsychologyIcon fontSize="inherit" />,
+		},
+		{
+			number: 100,
+			label: 'Client Satisfaction',
+			suffix: '%',
+			icon: <StarIcon fontSize="inherit" />,
+		},
+	];
+
+	const journey = [
+		{
+			year: '2021',
+			title: 'Started Web Development Journey',
+			description:
+				'Began learning HTML, CSS, and JavaScript fundamentals',
+			icon: <LightbulbIcon />,
+		},
+		{
+			year: '2022',
+			title: 'Mastered React & Modern Frameworks',
+			description:
+				'Dove deep into React, TypeScript, and modern development tools',
+			icon: <CodeIcon />,
+		},
+		{
+			year: '2023',
+			title: 'Full-Stack Development',
+			description:
+				'Expanded skills to include Node.js, databases, and cloud services',
+			icon: <TrendingUpIcon />,
+		},
+		{
+			year: '2024',
+			title: 'Professional Freelance Work',
+			description:
+				'Started taking on client projects and building production applications',
+			icon: <WorkIcon />,
+		},
 	];
 
 	const features = [
@@ -62,21 +131,73 @@ const Home: React.FC = () => {
 	];
 
 	return (
-		<>
+		<div ref={containerRef}>
+			{/* Floating Background Elements */}
+			<Box
+				sx={{
+					position: 'fixed',
+					top: 0,
+					left: 0,
+					width: '100%',
+					height: '100%',
+					pointerEvents: 'none',
+					zIndex: -1,
+					overflow: 'hidden',
+				}}
+			>
+				{[...Array(15)].map((_, i) => (
+					<motion.div
+						key={i}
+						style={{
+							position: 'absolute',
+							width: Math.random() * 100 + 50,
+							height: Math.random() * 100 + 50,
+							background: `linear-gradient(45deg, ${
+								isDarkMode
+									? 'rgba(102, 126, 234, 0.05)'
+									: 'rgba(102, 126, 234, 0.03)'
+							}, ${
+								isDarkMode
+									? 'rgba(118, 75, 162, 0.05)'
+									: 'rgba(118, 75, 162, 0.03)'
+							})`,
+							borderRadius: '50%',
+							left: Math.random() * 100 + '%',
+							top: Math.random() * 100 + '%',
+						}}
+						animate={{
+							y: [0, -100, 0],
+							x: [0, 50, 0],
+							scale: [1, 1.2, 1],
+						}}
+						transition={{
+							duration: Math.random() * 10 + 15,
+							repeat: Infinity,
+							ease: 'easeInOut',
+						}}
+					/>
+				))}
+			</Box>
+
 			{/* Hero Section */}
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.8 }}
+				style={{ transform: `translateY(${y})` }}
 			>
 				{/* Hero content */}
 				<Container maxWidth="lg">
 					<Box
 						sx={{
-							py: { xs: 8, md: 12 },
+							py: { xs: 12, md: 20 },
 							textAlign: 'center',
 							position: 'relative',
 							overflow: 'hidden',
+							minHeight: '100vh',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
 						}}
 					>
 						<motion.div
@@ -169,6 +290,9 @@ const Home: React.FC = () => {
 									}}
 								>
 									<Button
+										component={motion.button}
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
 										variant="contained"
 										size="large"
 										onClick={() => navigate('/projects')}
@@ -187,6 +311,9 @@ const Home: React.FC = () => {
 										View Projects
 									</Button>
 									<Button
+										component={motion.button}
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
 										variant="outlined"
 										size="large"
 										onClick={() => navigate('/contact')}
@@ -213,8 +340,9 @@ const Home: React.FC = () => {
 			{/* Features Section */}
 			<motion.div
 				initial={{ opacity: 0, y: 50 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8, delay: 0.8 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
 			>
 				<Container maxWidth="lg">
 					<Box sx={{ py: 8 }}>
@@ -291,51 +419,345 @@ const Home: React.FC = () => {
 			{/* Skills Showcase */}
 			<motion.div
 				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ duration: 0.8, delay: 1.2 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
 			>
 				<Container maxWidth="lg">
-					<Box sx={{ py: 8 }}>
-						{/* Skills showcase content */}
+					<Box sx={{ py: 12 }}>
 						<Typography
 							variant="h3"
 							component="h2"
-							sx={{ mb: 6, textAlign: 'center', fontWeight: 600 }}
+							sx={{ mb: 8, textAlign: 'center', fontWeight: 600 }}
 						>
-							Skills & Technologies
+							Skills & Expertise
 						</Typography>
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-								gap: 2,
-								flexWrap: 'wrap',
-							}}
-						>
+						<Grid container spacing={4}>
 							{skills.map((skill, index) => (
-								<motion.div
-									key={skill}
-									initial={{ opacity: 0, scale: 0.8 }}
-									animate={{ opacity: 1, scale: 1 }}
-									transition={{
-										delay: 1.4 + index * 0.1,
-									}}
+								<Grid
+									size={{ xs: 12, sm: 6, md: 4 }}
+									key={skill.name}
 								>
-									<Chip
-										label={skill}
-										variant="outlined"
+									<motion.div
+										initial={{ opacity: 0, x: -50 }}
+										whileInView={{ opacity: 1, x: 0 }}
+										transition={{
+											delay: index * 0.1,
+											duration: 0.6,
+										}}
+										viewport={{ once: true }}
+									>
+										<Box sx={{ mb: 3 }}>
+											<Box
+												sx={{
+													display: 'flex',
+													justifyContent:
+														'space-between',
+													mb: 1,
+												}}
+											>
+												<Typography
+													variant="h6"
+													sx={{ fontWeight: 600 }}
+												>
+													{skill.name}
+												</Typography>
+												<Typography
+													variant="body2"
+													color="text.secondary"
+												>
+													{skill.level}%
+												</Typography>
+											</Box>
+											<LinearProgress
+												variant="determinate"
+												value={skill.level}
+												sx={{
+													height: 8,
+													borderRadius: 4,
+													backgroundColor: isDarkMode
+														? 'rgba(255,255,255,0.1)'
+														: 'rgba(0,0,0,0.1)',
+													'& .MuiLinearProgress-bar':
+														{
+															borderRadius: 4,
+															background:
+																'linear-gradient(45deg, #667eea, #764ba2)',
+														},
+												}}
+											/>
+										</Box>
+									</motion.div>
+								</Grid>
+							))}
+						</Grid>
+					</Box>
+				</Container>
+			</motion.div>
+
+			{/* Stats Section */}
+			<motion.div
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
+			>
+				<Box
+					sx={{
+						background: isDarkMode
+							? 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)'
+							: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
+						py: 12,
+						position: 'relative',
+						overflow: 'hidden',
+					}}
+				>
+					<Container maxWidth="lg">
+						<Typography
+							variant="h3"
+							component="h2"
+							sx={{ mb: 8, textAlign: 'center', fontWeight: 600 }}
+						>
+							By the Numbers
+						</Typography>
+						<Grid container spacing={4}>
+							{stats.map((stat, index) => (
+								<Grid size={{ xs: 6, md: 3 }} key={stat.label}>
+									<motion.div
+										initial={{ opacity: 0, y: 50 }}
+										whileInView={{ opacity: 1, y: 0 }}
+										transition={{
+											delay: index * 0.2,
+											duration: 0.6,
+										}}
+										viewport={{ once: true }}
+										whileHover={{
+											scale: 1.05,
+											transition: { duration: 0.2 },
+										}}
+									>
+										<Card
+											sx={{
+												textAlign: 'center',
+												p: 4,
+												height: '100%',
+												background: 'transparent',
+												border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+												backdropFilter: 'blur(10px)',
+												transition: 'all 0.3s ease',
+												'&:hover': {
+													borderColor: 'primary.main',
+													boxShadow: `0 20px 40px ${isDarkMode ? 'rgba(102, 126, 234, 0.2)' : 'rgba(102, 126, 234, 0.1)'}`,
+												},
+											}}
+										>
+											<Box
+												sx={{
+													color: 'primary.main',
+													mb: 2,
+													fontSize: '3rem',
+												}}
+											>
+												{stat.icon}
+											</Box>
+											<Typography
+												variant="h2"
+												component="div"
+												sx={{
+													fontWeight: 800,
+													background:
+														'linear-gradient(45deg, #667eea, #764ba2)',
+													backgroundClip: 'text',
+													WebkitBackgroundClip:
+														'text',
+													WebkitTextFillColor:
+														'transparent',
+													mb: 1,
+												}}
+											>
+												{stat.number}
+												{stat.suffix || ''}
+											</Typography>
+											<Typography
+												variant="h6"
+												color="text.secondary"
+											>
+												{stat.label}
+											</Typography>
+										</Card>
+									</motion.div>
+								</Grid>
+							))}
+						</Grid>
+					</Container>
+				</Box>
+			</motion.div>
+
+			{/* Journey/Timeline Section */}
+			<motion.div
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
+			>
+				<Container maxWidth="lg">
+					<Box sx={{ py: 12 }}>
+						<Typography
+							variant="h3"
+							component="h2"
+							sx={{ mb: 8, textAlign: 'center', fontWeight: 600 }}
+						>
+							My Journey
+						</Typography>
+						<Box sx={{ position: 'relative' }}>
+							{/* Timeline Line */}
+							<Box
+								sx={{
+									position: 'absolute',
+									left: { xs: '20px', md: '50%' },
+									top: 0,
+									bottom: 0,
+									width: '2px',
+									background:
+										'linear-gradient(to bottom, #667eea, #764ba2)',
+									transform: { md: 'translateX(-50%)' },
+								}}
+							/>
+							{journey.map((item, index) => (
+								<motion.div
+									key={item.year}
+									initial={{
+										opacity: 0,
+										x: index % 2 === 0 ? -100 : 100,
+									}}
+									whileInView={{ opacity: 1, x: 0 }}
+									transition={{
+										delay: index * 0.2,
+										duration: 0.6,
+									}}
+									viewport={{ once: true }}
+								>
+									<Box
 										sx={{
-											fontSize: '1rem',
-											py: 1,
-											px: 2,
-											transition: 'all 0.3s ease',
-											'&:hover': {
-												transform: 'scale(1.1)',
-												backgroundColor: 'primary.main',
-												color: 'primary.contrastText',
+											display: 'flex',
+											alignItems: 'center',
+											mb: 6,
+											flexDirection: {
+												xs: 'row',
+												md:
+													index % 2 === 0
+														? 'row'
+														: 'row-reverse',
 											},
 										}}
-									/>
+									>
+										<Box
+											sx={{
+												flex: { xs: 'none', md: 1 },
+												textAlign: {
+													xs: 'left',
+													md:
+														index % 2 === 0
+															? 'right'
+															: 'left',
+												},
+												pr: {
+													xs: 0,
+													md: index % 2 === 0 ? 4 : 0,
+												},
+												pl: {
+													xs: 0,
+													md: index % 2 === 0 ? 0 : 4,
+												},
+												ml: { xs: 3, md: 0 },
+											}}
+										>
+											<Card
+												sx={{
+													p: 3,
+													maxWidth: {
+														xs: '100%',
+														md: 400,
+													},
+													ml: {
+														xs: 0,
+														md:
+															index % 2 === 0
+																? 'auto'
+																: 0,
+													},
+													mr: {
+														xs: 0,
+														md:
+															index % 2 === 0
+																? 0
+																: 'auto',
+													},
+													cursor: 'pointer',
+													transition: 'all 0.3s ease',
+													'&:hover': {
+														transform:
+															'translateY(-5px)',
+														boxShadow: `0 20px 40px ${isDarkMode ? 'rgba(102, 126, 234, 0.2)' : 'rgba(0, 0, 0, 0.1)'}`,
+													},
+												}}
+											>
+												<Typography
+													variant="h6"
+													sx={{
+														color: 'primary.main',
+														fontWeight: 700,
+														mb: 1,
+													}}
+												>
+													{item.year}
+												</Typography>
+												<Typography
+													variant="h5"
+													sx={{
+														mb: 2,
+														fontWeight: 600,
+													}}
+												>
+													{item.title}
+												</Typography>
+												<Typography
+													variant="body1"
+													color="text.secondary"
+												>
+													{item.description}
+												</Typography>
+											</Card>
+										</Box>
+										{/* Timeline Node */}
+										<Box
+											sx={{
+												position: {
+													xs: 'absolute',
+													md: 'relative',
+												},
+												left: {
+													xs: '11px',
+													md: 'auto',
+												},
+												width: 60,
+												height: 60,
+												borderRadius: '50%',
+												background:
+													'linear-gradient(45deg, #667eea, #764ba2)',
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'center',
+												color: 'white',
+												fontSize: '1.5rem',
+												boxShadow:
+													'0 4px 20px rgba(102, 126, 234, 0.3)',
+												zIndex: 2,
+											}}
+										>
+											{item.icon}
+										</Box>
+									</Box>
 								</motion.div>
 							))}
 						</Box>
@@ -343,23 +765,95 @@ const Home: React.FC = () => {
 				</Container>
 			</motion.div>
 
+			{/* Interactive Quote Section */}
+			<motion.div
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
+			>
+				<Box
+					sx={{
+						py: 12,
+						background: isDarkMode
+							? 'linear-gradient(135deg, rgba(25, 118, 210, 0.05) 0%, rgba(220, 0, 78, 0.05) 100%)'
+							: 'linear-gradient(135deg, rgba(25, 118, 210, 0.03) 0%, rgba(220, 0, 78, 0.03) 100%)',
+						position: 'relative',
+						overflow: 'hidden',
+					}}
+				>
+					<Container maxWidth="md">
+						<motion.div
+							whileHover={{ scale: 1.02 }}
+							transition={{ duration: 0.3 }}
+						>
+							<Typography
+								variant="h3"
+								component="blockquote"
+								sx={{
+									textAlign: 'center',
+									fontStyle: 'italic',
+									fontWeight: 300,
+									lineHeight: 1.4,
+									position: 'relative',
+									'&::before': {
+										content: '""',
+										fontSize: '4rem',
+										position: 'absolute',
+										top: -20,
+										left: -20,
+										color: 'primary.main',
+										opacity: 0.3,
+									},
+									'&::after': {
+										content: '""',
+										fontSize: '4rem',
+										position: 'absolute',
+										bottom: -40,
+										right: -20,
+										color: 'primary.main',
+										opacity: 0.3,
+									},
+								}}
+							>
+								Code is like humor. When you have to explain it,
+								it's bad.
+							</Typography>
+							<Typography
+								variant="h6"
+								sx={{
+									textAlign: 'center',
+									mt: 4,
+									color: 'text.secondary',
+									fontWeight: 500,
+								}}
+							>
+								— Cory House
+							</Typography>
+						</motion.div>
+					</Container>
+				</Box>
+			</motion.div>
+
 			{/* Ready to Work Together Section */}
 			<motion.div
 				initial={{ opacity: 0, y: 50 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8, delay: 1.6 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
 			>
 				<Container maxWidth="lg">
 					<Box sx={{ py: { xs: 8, md: 12 } }}>
 						<motion.div
 							initial={{ opacity: 0, scale: 0.95 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{ duration: 0.8, delay: 1.8 }}
+							whileInView={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.8 }}
+							viewport={{ once: true }}
 						>
 							<Card
 								sx={{
 									background:
-										'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
+										'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
 									color: 'white',
 									textAlign: 'center',
 									p: { xs: 4, md: 6 },
@@ -373,7 +867,7 @@ const Home: React.FC = () => {
 										right: 0,
 										bottom: 0,
 										background:
-											'linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+											'linear-gradient(45deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.12) 100%)',
 										zIndex: 0,
 									},
 								}}
@@ -452,6 +946,9 @@ const Home: React.FC = () => {
 											}}
 										>
 											<Button
+												component={motion.button}
+												whileHover={{ scale: 1.05 }}
+												whileTap={{ scale: 0.95 }}
 												variant="contained"
 												size="large"
 												onClick={() =>
@@ -480,6 +977,9 @@ const Home: React.FC = () => {
 												Get In Touch
 											</Button>
 											<Button
+												component={motion.button}
+												whileHover={{ scale: 1.05 }}
+												whileTap={{ scale: 0.95 }}
 												variant="outlined"
 												size="large"
 												onClick={() =>
@@ -538,7 +1038,7 @@ const Home: React.FC = () => {
 					</Box>
 				</Container>
 			</motion.div>
-		</>
+		</div>
 	);
 };
 

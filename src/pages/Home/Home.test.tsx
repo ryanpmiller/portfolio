@@ -55,7 +55,7 @@ describe('Home Component', () => {
 	test('renders skills section', () => {
 		renderWithProviders(<Home />);
 
-		expect(screen.getByText('Skills & Technologies')).toBeInTheDocument();
+		expect(screen.getByText('Skills & Expertise')).toBeInTheDocument();
 		expect(screen.getByText('React')).toBeInTheDocument();
 		expect(screen.getByText('TypeScript')).toBeInTheDocument();
 		expect(screen.getByText('Material-UI')).toBeInTheDocument();

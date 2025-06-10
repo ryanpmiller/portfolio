@@ -20,6 +20,7 @@ import {
 	GitHub as GitHubIcon,
 	Send as SendIcon,
 } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 import { getEnvVar } from '../../utils/env';
 
 interface FormData {
@@ -220,6 +221,9 @@ const Contact: React.FC = () => {
 										</Grid>
 										<Grid size={{ xs: 12 }}>
 											<Button
+												component={motion.button}
+												whileHover={{ scale: 1.05 }}
+												whileTap={{ scale: 0.95 }}
 												type="submit"
 												variant="contained"
 												size="large"
@@ -347,6 +351,9 @@ const Contact: React.FC = () => {
 						to help bring your vision to life.
 					</Typography>
 					<Button
+						component={motion.button}
+						whileHover={{ scale: 1.05 }}
+						whileTap={{ scale: 0.95 }}
 						variant="contained"
 						size="large"
 						href="mailto:contact@example.com"

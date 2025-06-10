@@ -59,7 +59,8 @@ describe('Contact Component', () => {
 		});
 
 		// Initially, submit button should be disabled (form is empty)
-		expect(submitButton).toBeDisabled();
+		// Material-UI with motion component uses aria-disabled instead of disabled attribute
+		expect(submitButton).toHaveAttribute('aria-disabled', 'true');
 
 		// Fill out the form
 		await user.type(screen.getByLabelText(/Name/), 'John Doe');
@@ -71,7 +72,7 @@ describe('Contact Component', () => {
 		);
 
 		// Now submit button should be enabled
-		expect(submitButton).not.toBeDisabled();
+		expect(submitButton).not.toHaveAttribute('aria-disabled', 'true');
 	});
 
 	test('form submission shows success message', async () => {
