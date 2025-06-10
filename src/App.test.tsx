@@ -107,12 +107,12 @@ describe('App Component', () => {
 	test('renders header and footer', () => {
 		renderWithRouter(<App />);
 
-		// Check if header is present (Portfolio text should be in header)
-		expect(screen.getAllByText('Portfolio')[0]).toBeInTheDocument();
+		// Check if header is present (Ryan Miller text should be in header)
+		expect(screen.getAllByText('Ryan Miller')[0]).toBeInTheDocument();
 
 		// Check if footer is present (copyright text should be in footer)
 		expect(
-			screen.getByText(/© \d{4} Portfolio\. All rights reserved\./)
+			screen.getByText(/© \d{4} Ryan Miller\. All rights reserved\./)
 		).toBeInTheDocument();
 	});
 

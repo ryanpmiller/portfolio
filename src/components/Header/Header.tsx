@@ -59,7 +59,7 @@ const Header: React.FC = () => {
 	const drawer = (
 		<Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
 			<Typography variant="h6" sx={{ my: 2 }}>
-				Portfolio
+				Ryan Miller
 			</Typography>
 			<List>
 				{menuItems.map(item => (
@@ -116,7 +116,7 @@ const Header: React.FC = () => {
 							sx={{ flexGrow: 1, cursor: 'pointer' }}
 							onClick={() => handleNavigation('/')}
 						>
-							Portfolio
+							Ryan Miller
 						</Typography>
 
 						{/* Theme Toggle Button */}

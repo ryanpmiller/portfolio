@@ -28,7 +28,10 @@ const Footer: React.FC = () => {
 	// Environment variables
 	const githubUrl = getEnvVar('VITE_GITHUB_URL', 'https://github.com');
 	const linkedinUrl = getEnvVar('VITE_LINKEDIN_URL', 'https://linkedin.com');
-	const contactEmail = getEnvVar('VITE_CONTACT_EMAIL', 'contact@example.com');
+	const contactEmail = getEnvVar(
+		'VITE_CONTACT_EMAIL',
+		'ryan.miller.p@gmail.com'
+	);
 
 	const techStack = [
 		'React',
@@ -298,7 +301,8 @@ const Footer: React.FC = () => {
 								color="text.secondary"
 								sx={{ mb: { xs: 2, sm: 0 } }}
 							>
-								© {currentYear} Portfolio. All rights reserved.
+								© {currentYear} Ryan Miller. All rights
+								reserved.
 							</Typography>
 
 							<Box

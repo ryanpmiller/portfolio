@@ -32,7 +32,10 @@ interface FormData {
 
 const Contact: React.FC = () => {
 	// Environment variables
-	const contactEmail = getEnvVar('VITE_CONTACT_EMAIL', 'contact@example.com');
+	const contactEmail = getEnvVar(
+		'VITE_CONTACT_EMAIL',
+		'ryan.miller.p@gmail.com'
+	);
 
 	const [formData, setFormData] = useState<FormData>({
 		name: '',
@@ -55,13 +58,13 @@ const Contact: React.FC = () => {
 		{
 			icon: <PhoneIcon color="primary" />,
 			title: 'Phone',
-			value: '+1 (555) 123-4567',
+			value: '+1 (802) 578-6033',
 			link: 'tel:+15551234567',
 		},
 		{
 			icon: <LocationIcon color="primary" />,
 			title: 'Location',
-			value: 'San Francisco, CA',
+			value: 'Monrovia, MD',
 			link: null,
 		},
 	];
@@ -356,7 +359,7 @@ const Contact: React.FC = () => {
 						whileTap={{ scale: 0.95 }}
 						variant="contained"
 						size="large"
-						href="mailto:contact@example.com"
+						href="mailto:ryan.miller.p@gmail.com"
 						sx={{ px: 4, py: 1.5 }}
 					>
 						Let's Talk

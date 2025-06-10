@@ -57,7 +57,7 @@ Object.defineProperty(globalThis, 'import', {
 			env: {
 				VITE_ENVIRONMENT: 'test',
 				VITE_API_URL: 'http://localhost:3001',
-				VITE_CONTACT_EMAIL: 'test@example.com',
+				VITE_CONTACT_EMAIL: 'ryan.miller.p@gmail.com',
 				VITE_ANALYTICS_ID: '',
 				VITE_GITHUB_URL: 'https://github.com/test',
 				VITE_LINKEDIN_URL: 'https://linkedin.com/in/test',

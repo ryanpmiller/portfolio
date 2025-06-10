@@ -36,9 +36,9 @@ describe('Contact Component', () => {
 		renderWithProviders(<Contact />);
 
 		expect(screen.getByText('Contact Info')).toBeInTheDocument();
-		expect(screen.getByText('test@example.com')).toBeInTheDocument();
-		expect(screen.getByText('+1 (555) 123-4567')).toBeInTheDocument();
-		expect(screen.getByText('San Francisco, CA')).toBeInTheDocument();
+		expect(screen.getByText('ryan.miller.p@gmail.com')).toBeInTheDocument();
+		expect(screen.getByText('+1 (802) 578-6033')).toBeInTheDocument();
+		expect(screen.getByText('Monrovia, MD')).toBeInTheDocument();
 	});
 
 	test('renders social links', () => {

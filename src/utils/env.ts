@@ -5,7 +5,7 @@ export const getEnvVar = (key: string, defaultValue: string = ''): string => {
 		const testEnvVars: Record<string, string> = {
 			VITE_ENVIRONMENT: 'test',
 			VITE_API_URL: 'http://localhost:3001',
-			VITE_CONTACT_EMAIL: 'test@example.com',
+			VITE_CONTACT_EMAIL: 'ryan.miller.p@gmail.com',
 			VITE_ANALYTICS_ID: '',
 			VITE_GITHUB_URL: 'https://github.com/test',
 			VITE_LINKEDIN_URL: 'https://linkedin.com/in/test',
@@ -21,7 +21,7 @@ export const getEnvVar = (key: string, defaultValue: string = ''): string => {
 	const envVars: Record<string, string> = {
 		VITE_ENVIRONMENT: 'development',
 		VITE_API_URL: 'http://localhost:3001',
-		VITE_CONTACT_EMAIL: 'contact@example.com',
+		VITE_CONTACT_EMAIL: 'ryan.miller.p@gmail.com',
 		VITE_ANALYTICS_ID: '',
 		VITE_GITHUB_URL: 'https://github.com',
 		VITE_LINKEDIN_URL: 'https://linkedin.com',

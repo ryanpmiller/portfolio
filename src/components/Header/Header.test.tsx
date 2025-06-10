@@ -15,9 +15,9 @@ describe('Header Component', () => {
 		testEnv.cleanup();
 	});
 
-	test('renders portfolio title', () => {
+	test('renders title', () => {
 		renderWithProviders(<Header />);
-		expect(screen.getAllByText('Portfolio')).toHaveLength(2); // Desktop and mobile versions
+		expect(screen.getAllByText('Ryan Miller')).toHaveLength(2); // Desktop and mobile versions
 	});
 
 	test('renders navigation menu items', () => {

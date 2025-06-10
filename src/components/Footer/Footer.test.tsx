@@ -20,7 +20,7 @@ describe('Footer Component', () => {
 		const currentYear = new Date().getFullYear();
 		expect(
 			screen.getByText(
-				`© ${currentYear} Portfolio. All rights reserved.`
+				`© ${currentYear} Ryan Miller. All rights reserved.`
 			)
 		).toBeInTheDocument();
 	});
@@ -44,7 +44,10 @@ describe('Footer Component', () => {
 		// Check for Email link
 		const emailLink = screen.getByLabelText('Email');
 		expect(emailLink).toBeInTheDocument();
-		expect(emailLink).toHaveAttribute('href', 'mailto:test@example.com');
+		expect(emailLink).toHaveAttribute(
+			'href',
+			'mailto:ryan.miller.p@gmail.com'
+		);
 	});
 
 	test('social media links open in new tab', () => {

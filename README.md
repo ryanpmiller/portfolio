@@ -199,7 +199,7 @@ cp .env.example .env.local
 
 # Environment variables must be prefixed with VITE_
 VITE_API_URL=https://api.example.com
-VITE_CONTACT_EMAIL=contact@example.com
+VITE_CONTACT_EMAIL=ryan.miller.p@gmail.com
 ```
 
 ## 🎨 Customization
