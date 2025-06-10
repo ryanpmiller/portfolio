@@ -133,7 +133,7 @@ const Header: React.FC = () => {
 								whileTap={{ scale: 0.95 }}
 								onClick={toggleTheme}
 								color="inherit"
-								sx={{ mr: 1 }}
+								sx={{ mr: 2 }}
 							>
 								{isDarkMode ? (
 									<LightModeIcon />
