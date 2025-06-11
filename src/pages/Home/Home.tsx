@@ -369,7 +369,10 @@ const Home: React.FC = () => {
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ delay: index * 0.2 + 1 }}
 										whileHover={{ y: -8 }}
-										style={{ display: 'block' }}
+										style={{
+											display: 'block',
+											height: '100%',
+										}}
 									>
 										<Card
 											sx={{
@@ -379,6 +382,8 @@ const Home: React.FC = () => {
 												transition:
 													'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
 												border: '1px solid transparent',
+												display: 'flex',
+												flexDirection: 'column',
 												'&:hover': {
 													transform:
 														'translateY(-8px)',
@@ -388,25 +393,38 @@ const Home: React.FC = () => {
 												},
 											}}
 										>
-											<CardContent>
-												<motion.div
-													whileHover={{ rotate: 360 }}
-													transition={{
-														duration: 0.6,
-													}}
-												>
-													{feature.icon}
-												</motion.div>
-												<Typography
-													variant="h5"
-													component="h3"
-													sx={{ mb: 2 }}
-												>
-													{feature.title}
-												</Typography>
+											<CardContent
+												sx={{
+													flex: 1,
+													display: 'flex',
+													flexDirection: 'column',
+													justifyContent:
+														'space-between',
+												}}
+											>
+												<Box>
+													<motion.div
+														whileHover={{
+															rotate: 360,
+														}}
+														transition={{
+															duration: 0.6,
+														}}
+													>
+														{feature.icon}
+													</motion.div>
+													<Typography
+														variant="h5"
+														component="h3"
+														sx={{ mb: 2 }}
+													>
+														{feature.title}
+													</Typography>
+												</Box>
 												<Typography
 													variant="body1"
 													color="text.secondary"
+													sx={{ flex: 1 }}
 												>
 													{feature.description}
 												</Typography>
@@ -539,6 +557,7 @@ const Home: React.FC = () => {
 											scale: 1.05,
 											transition: { duration: 0.2 },
 										}}
+										style={{ height: '100%' }}
 									>
 										<Card
 											sx={{
@@ -549,6 +568,9 @@ const Home: React.FC = () => {
 												border: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
 												backdropFilter: 'blur(10px)',
 												transition: 'all 0.3s ease',
+												display: 'flex',
+												flexDirection: 'column',
+												justifyContent: 'center',
 												'&:hover': {
 													borderColor: 'primary.main',
 													boxShadow: `0 20px 40px ${isDarkMode ? 'rgba(102, 126, 234, 0.2)' : 'rgba(102, 126, 234, 0.1)'}`,
