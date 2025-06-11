@@ -9,7 +9,9 @@ import {
 	Card,
 	CardContent,
 	LinearProgress,
+	useMediaQuery,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
 	Code as CodeIcon,
 	Palette as PaletteIcon,
@@ -33,6 +35,8 @@ const Home: React.FC = () => {
 	const { mode } = useCustomTheme();
 	const isDarkMode = mode === 'dark';
 	const containerRef = useRef<HTMLDivElement>(null);
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
@@ -601,7 +605,7 @@ const Home: React.FC = () => {
 				viewport={{ once: true }}
 			>
 				<Container maxWidth="lg">
-					<Box sx={{ py: 12 }}>
+					<Box sx={{ py: 12, overflow: 'hidden' }}>
 						<Typography
 							variant="h3"
 							component="h2"
@@ -610,17 +614,18 @@ const Home: React.FC = () => {
 							My Journey
 						</Typography>
 						<Box sx={{ position: 'relative' }}>
-							{/* Timeline Line */}
+							{/* Timeline Line - Hidden on mobile, visible on desktop */}
 							<Box
 								sx={{
 									position: 'absolute',
-									left: { xs: '20px', md: '50%' },
+									left: { xs: 'none', lg: '50%' },
 									top: 0,
 									bottom: 0,
 									width: '2px',
 									background:
 										'linear-gradient(to bottom, #667eea, #764ba2)',
 									transform: { md: 'translateX(-50%)' },
+									display: { xs: 'none', lg: 'block' },
 								}}
 							/>
 							{journey.map((item, index) => (
@@ -628,71 +633,55 @@ const Home: React.FC = () => {
 									key={item.year}
 									initial={{
 										opacity: 0,
-										x: index % 2 === 0 ? -100 : 100,
+										x: isMobile
+											? 0
+											: index % 2 === 0
+												? -100
+												: 100,
+										y: isMobile ? 30 : 0,
 									}}
-									whileInView={{ opacity: 1, x: 0 }}
+									whileInView={{ opacity: 1, x: 0, y: 0 }}
 									transition={{
 										delay: index * 0.2,
 										duration: 0.6,
 									}}
 									viewport={{ once: true }}
 								>
+									{/* Desktop Layout */}
 									<Box
 										sx={{
-											display: 'flex',
+											display: { xs: 'none', md: 'flex' },
 											alignItems: 'center',
 											mb: 6,
-											flexDirection: {
-												xs: 'row',
-												md:
-													index % 2 === 0
-														? 'row'
-														: 'row-reverse',
-											},
+											flexDirection:
+												index % 2 === 0
+													? 'row'
+													: 'row-reverse',
 										}}
 									>
 										<Box
 											sx={{
-												flex: { xs: 'none', md: 1 },
-												textAlign: {
-													xs: 'left',
-													md:
-														index % 2 === 0
-															? 'right'
-															: 'left',
-												},
-												pr: {
-													xs: 0,
-													md: index % 2 === 0 ? 4 : 0,
-												},
-												pl: {
-													xs: 0,
-													md: index % 2 === 0 ? 0 : 4,
-												},
-												ml: { xs: 3, md: 0 },
+												flex: 1,
+												textAlign:
+													index % 2 === 0
+														? 'right'
+														: 'left',
+												pr: index % 2 === 0 ? 4 : 0,
+												pl: index % 2 === 0 ? 0 : 4,
 											}}
 										>
 											<Card
 												sx={{
 													p: 3,
-													maxWidth: {
-														xs: '100%',
-														md: 400,
-													},
-													ml: {
-														xs: 0,
-														md:
-															index % 2 === 0
-																? 'auto'
-																: 0,
-													},
-													mr: {
-														xs: 0,
-														md:
-															index % 2 === 0
-																? 0
-																: 'auto',
-													},
+													maxWidth: 400,
+													ml:
+														index % 2 === 0
+															? 'auto'
+															: 0,
+													mr:
+														index % 2 === 0
+															? 0
+															: 'auto',
 													cursor: 'pointer',
 													transition: 'all 0.3s ease',
 													'&:hover': {
@@ -729,17 +718,9 @@ const Home: React.FC = () => {
 												</Typography>
 											</Card>
 										</Box>
-										{/* Timeline Node */}
+										{/* Timeline Node - Centered */}
 										<Box
 											sx={{
-												position: {
-													xs: 'absolute',
-													md: 'relative',
-												},
-												left: {
-													xs: '11px',
-													md: 'auto',
-												},
 												width: 60,
 												height: 60,
 												borderRadius: '50%',
@@ -756,6 +737,86 @@ const Home: React.FC = () => {
 											}}
 										>
 											{item.icon}
+										</Box>
+									</Box>
+
+									{/* Mobile Layout */}
+									<Box
+										sx={{
+											display: { xs: 'flex', md: 'none' },
+											alignItems: 'flex-start',
+											mb: 6,
+											gap: 2,
+										}}
+									>
+										{/* Timeline Node - Inline */}
+										<Box
+											sx={{
+												width: 40,
+												height: 40,
+												minWidth: 40,
+												borderRadius: '50%',
+												background:
+													'linear-gradient(45deg, #667eea, #764ba2)',
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'center',
+												color: 'white',
+												fontSize: '1rem',
+												boxShadow:
+													'0 4px 20px rgba(102, 126, 234, 0.3)',
+												zIndex: 2,
+												mt: 1,
+											}}
+										>
+											{item.icon}
+										</Box>
+
+										<Box sx={{ flex: 1 }}>
+											<Card
+												sx={{
+													p: 2,
+													cursor: 'pointer',
+													transition: 'all 0.3s ease',
+													'&:hover': {
+														transform:
+															'translateY(-5px)',
+														boxShadow: `0 20px 40px ${isDarkMode ? 'rgba(102, 126, 234, 0.2)' : 'rgba(0, 0, 0, 0.1)'}`,
+													},
+												}}
+											>
+												<Typography
+													variant="h6"
+													sx={{
+														color: 'primary.main',
+														fontWeight: 700,
+														mb: 1,
+														fontSize: '1rem',
+													}}
+												>
+													{item.year}
+												</Typography>
+												<Typography
+													variant="h5"
+													sx={{
+														mb: 2,
+														fontWeight: 600,
+														fontSize: '1.25rem',
+													}}
+												>
+													{item.title}
+												</Typography>
+												<Typography
+													variant="body1"
+													color="text.secondary"
+													sx={{
+														fontSize: '0.875rem',
+														lineHeight: 1.5,
+													}}
+												>
+													{item.description}
+												</Typography>
+											</Card>
 										</Box>
 									</Box>
 								</motion.div>
