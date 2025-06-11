@@ -182,7 +182,7 @@ const About: React.FC = () => {
 											repeatType: 'reverse',
 										}}
 									>
-										JD
+										RM
 									</motion.span>
 								</Avatar>
 							</motion.div>
@@ -212,7 +212,7 @@ const About: React.FC = () => {
 									mx: 'auto',
 								}}
 							>
-								I'm a passionate front-end developer with 5+
+								I'm a passionate front-end developer with 18+
 								years of experience creating beautiful,
 								functional, and user-friendly web applications.
 							</Typography>
@@ -733,7 +733,6 @@ const About: React.FC = () => {
 															<motion.div
 																whileHover={{
 																	scale: 1.2,
-																	rotate: 180,
 																}}
 																transition={{
 																	duration: 0.3,

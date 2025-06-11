@@ -4,7 +4,6 @@ import {
 	AppBar,
 	Toolbar,
 	Typography,
-	Button,
 	Box,
 	IconButton,
 	Drawer,
@@ -67,16 +66,14 @@ const Header: React.FC = () => {
 						<ListItemButton
 							sx={{
 								textAlign: 'center',
-								backgroundColor: isActiveRoute(item.path)
-									? 'rgba(25, 118, 210, 0.12)'
-									: 'transparent',
+								backgroundColor: 'transparent',
+								py: 2,
 								'&:hover': {
-									backgroundColor: isActiveRoute(item.path)
-										? 'rgba(25, 118, 210, 0.2)'
-										: 'rgba(0, 0, 0, 0.04)',
+									backgroundColor: 'rgba(25, 118, 210, 0.08)',
 								},
 								borderLeft: isActiveRoute(item.path) ? 3 : 0,
 								borderLeftColor: 'primary.main',
+								transition: 'all 0.3s ease-in-out',
 							}}
 							onClick={() => handleNavigation(item.path)}
 						>
@@ -86,10 +83,12 @@ const Header: React.FC = () => {
 									'& .MuiListItemText-primary': {
 										fontWeight: isActiveRoute(item.path)
 											? 600
-											: 400,
+											: 500,
 										color: isActiveRoute(item.path)
 											? 'primary.main'
 											: 'inherit',
+										fontSize: '1rem',
+										transition: 'all 0.3s ease-in-out',
 									},
 								}}
 							/>
@@ -156,42 +155,75 @@ const Header: React.FC = () => {
 								<MenuIcon />
 							</IconButton>
 						) : (
-							<Box sx={{ display: 'flex', gap: 2 }}>
+							<Box
+								sx={{
+									display: 'flex',
+									gap: 4,
+									alignItems: 'center',
+								}}
+							>
 								{menuItems.map(item => (
-									<Button
+									<motion.div
 										key={item.label}
-										color="inherit"
-										onClick={() =>
-											handleNavigation(item.path)
-										}
-										sx={{
-											position: 'relative',
-											borderBottom: isActiveRoute(
-												item.path
-											)
-												? 2
-												: 0,
-											borderBottomColor: 'primary.main',
-											backgroundColor: isActiveRoute(
-												item.path
-											)
-												? 'rgba(255, 255, 255, 0.1)'
-												: 'transparent',
-											'&:hover': {
-												backgroundColor: isActiveRoute(
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+									>
+										<Typography
+											variant="body1"
+											component="span"
+											onClick={() =>
+												handleNavigation(item.path)
+											}
+											sx={{
+												position: 'relative',
+												cursor: 'pointer',
+												color: 'inherit',
+												fontWeight: isActiveRoute(
 													item.path
 												)
-													? 'rgba(255, 255, 255, 0.15)'
-													: 'rgba(255, 255, 255, 0.08)',
-											},
-											fontWeight: isActiveRoute(item.path)
-												? 600
-												: 400,
-											transition: 'all 0.2s ease-in-out',
-										}}
-									>
-										{item.label}
-									</Button>
+													? 600
+													: 500,
+												fontSize: '1rem',
+												textDecoration: 'none',
+												transition:
+													'all 0.3s ease-in-out',
+												px: 2,
+												py: 1.5,
+												borderRadius: 1,
+												'&:hover': {
+													color: isDarkMode
+														? 'rgba(255, 255, 255, 0.9)'
+														: 'rgba(255, 255, 255, 0.95)',
+													transform:
+														'translateY(-1px)',
+												},
+												'&::after': {
+													content: '""',
+													position: 'absolute',
+													bottom: '3px',
+													left: '50%',
+													transform:
+														'translateX(-50%)',
+													width: isActiveRoute(
+														item.path
+													)
+														? '80%'
+														: '0%',
+													height: '2px',
+													backgroundColor: isDarkMode
+														? 'primary.main'
+														: 'secondary.light',
+													transition:
+														'width 0.3s ease-in-out',
+												},
+												'&:hover::after': {
+													width: '80%',
+												},
+											}}
+										>
+											{item.label}
+										</Typography>
+									</motion.div>
 								))}
 							</Box>
 						)}

@@ -21,7 +21,7 @@ describe('About Component', () => {
 
 	test('renders avatar with initials', () => {
 		renderWithProviders(<About />);
-		expect(screen.getByText('JD')).toBeInTheDocument();
+		expect(screen.getByText('RM')).toBeInTheDocument();
 	});
 
 	test('renders introduction text', () => {
